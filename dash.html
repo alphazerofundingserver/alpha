@@ -1,0 +1,929 @@
+<html lang="en"><head></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Dash</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script><script src="chrome-extension://idnnbdplmphpflfnlkomgpfbpcgelopg/inpage.js" id="xverse-wallet-provider" data-is-priority="true"></script> -->
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar {
+    flex: 0 0 15%; /* Use percentage instead of fixed width */
+    background: linear-gradient(135deg, #FF007F, #FFD700, #00FFFF, #8A2BE2);
+    background-size: 400% 400%;
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    animation: gradientAnimation 5s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar li {
+    margin: 15px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.content {
+    flex-grow: 1;
+    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo-container .logo-text {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #FF007F, #FFD700, #00FFFF, #8A2BE2);
+    background-size: 400% 400%;
+    padding: 2%;
+    border-radius: 16px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+    overflow: auto;
+    position: relative;
+    animation: gradientAnimation 5s ease infinite;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+
+
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.card::before, .sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/hexagons.png');
+    opacity: 0.3;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.card::after, .sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(0,0,0,0.7));
+    opacity: 0.5;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.neon-glow {
+    text-align: center;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin-top: 50px;
+    animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff, 0 0 80px #ff00ff;
+    }
+}
+
+.input-container {
+    width: 60%;
+    max-width: 60%;
+    position: relative;
+    top:55%;
+    left:2%;
+    height:15%;
+    border: 2px solid black;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 3; /* Ensure it is in front of everything */
+}
+
+.input-dashboard {
+    height: 150px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    outline: none;
+    flex-grow: 1;
+    transition: border-color 0.3s ease-in-out;
+    color: black;
+}
+
+.input-dashboard:focus {
+    border-color: blue;
+}
+
+.input-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    height: 36px;
+    border-top: 1px solid #ccc;
+    background: #f9f9f9;
+    border-radius: 0 0 8px 8px;
+}
+
+.input-toolbar .left-buttons {
+    display: flex;
+}
+
+.input-toolbar .left-buttons button {
+    background: black;
+    border: Yellow;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.input-toolbar .send-button {
+    background: blue;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5em;
+    position: relative;
+}
+
+.input-toolbar .send-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M3 12L2 22L22 12L2 2L3 12Z" /></svg>') no-repeat center;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+}
+
+.input-toolbar button:hover {
+    color: blue;
+}
+
+.placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+.chat-dashboard {
+    width: 60%;
+    max-width: 60%;
+    height: 40%;
+    position: absolute;
+    top: 10%;
+    left: 2%;
+    background: linear-gradient(135deg, #FF007F, #FFD700, #00FFFF, #8A2BE2);
+    background-size: 400% 400%;
+    border-radius: 16px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    padding: 20px;
+    animation: gradientAnimation 5s ease infinite;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+
+.chat-message {
+    background-color: yellow;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.response-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.response-message img {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.response-message .message {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.copy-button {
+    background: #50fa7b;
+    border: none;
+    color: #2d2d2d;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.copy-button:hover {
+    background: #40d77b;
+}
+
+
+.code-block {
+    background: #1e1e1e;
+    color: #dcdcdc;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.code-block pre {
+    margin: 0;
+    overflow: auto;
+}
+
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #50fa7b;
+    border: none;
+    color: #2d2d2d;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background: #40d77b;
+}
+
+/* Avatar container */
+#alphazero-area-section {
+    position: absolute;
+    color: black; /* Change text color to black */
+    top: 10%;
+    right: 2%;
+    width: 35%;
+    height: 40%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+}
+
+#alphazero-area {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.draggable-handle {
+    width: 100%;
+    height: 30px;
+    background: #ddd;
+    cursor: move;
+    border-radius: 10px;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#close-avatar {
+    background: #ff4d4d;
+    border-radius: 50%;
+    padding: 5px 10px;
+}
+
+#close-avatar:hover {
+    background: #ff1a1a;
+}
+
+#close-avatar:active {
+    background: #e60000;
+}
+
+#controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* General button styles */
+        .button {
+            background-color: #007bff; /* Default blue color for buttons */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 50%; /* Circular buttons */
+            transition: background-color 0.3s ease; /* Smooth transition for background color changes */
+        }
+
+        /* Specific button background colors */
+        #login-button {
+            background-color: #4CAF50; /* Green */
+        }
+
+        #logout-button {
+            background-color: #f44336; /* Red */
+        }
+
+        #token-activate-button {
+            background-color: #009688; /* Teal */
+        }
+
+        #pay-button {
+            background-color: #FFC107; /* Amber */
+        }
+
+        #set-security-button {
+            background-color: #3F51B5; /* Indigo */
+        }
+
+        #forgot-email-button {
+            background-color: #9C27B0; /* Purple */
+        }
+
+        /* Hover effect for buttons */
+        .button:hover {
+            opacity: 0.8;
+        }
+
+        /* Message count styling */
+        #message-count {
+            font-size: 18px;
+            font-weight: bold;
+            color: white; /* White text color */
+        }
+
+
+        /* Email display styling */
+        #email-display {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        /* Hidden elements */
+        .hidden {
+            display: none;
+        }
+
+        .session-id {
+            display: none;
+        }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 10px;
+        height: 95vh;
+    }
+    
+    .sidebar {
+        flex: 0 0 auto;
+        width: 100%;
+        height: calc(100% / 10);
+        margin-bottom: 0; /* Remove the space below the sidebar */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .sidebar h2 {
+        display: none; /* Remove the title in mobile view */
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .sidebar li {
+        margin: 0;
+        width: auto;
+    }
+
+    .sidebar button {
+        padding: 2.5px 5px; /* Adjust padding to fit nicely */
+        font-size: 0.3em; /* Adjust font size to fit nicely */
+        width: 100%; /* Make buttons take full width of their container */
+        flex: 1; /* Make buttons flexible to fit within the sidebar */
+        box-sizing: border-box;
+    }
+
+    .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0; /* Remove any default margin at the top */
+    }
+
+    .card {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0; /* Remove any default margin at the top */
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .logo-container img {
+        height: 25px; /* Reduce the image size by half */
+        width: 25px; /* Reduce the image size by half */
+        margin-right: 5px;
+    }
+
+    .logo-container .logo-text {
+        font-size: 0.9em; /* Reduce the title size by half */
+        font-weight: bold;
+        color: #333;
+    }
+
+    #alphazero-area-section {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    position: static;
+    order: 1; /* Ensure the avatar section appears first in the flex container */
+    color: black; /* Change text color to black */
+}
+
+
+    .chat-dashboard {
+        width: 98%; /* Adjust width to 98% of the container */
+        height: 25%; /* Increase height */
+        margin-bottom: 10px;
+        position: static;
+        order: 2; /* Ensure the chat dashboard appears below the avatar section */
+        font-size: 0.6em; /* Reduce text size */
+    }
+
+    .input-container {
+        width: 98%; /* Adjust width to 98% of the container */
+        height: calc(100% / 6);
+        position: static;
+        order: 3; /* Ensure the input container appears below the chat dashboard */
+    }
+
+    .input-dashboard {
+        height: 80px; /* Reduce the height of the typing area */
+        padding: 5px; /* Adjust padding */
+        font-size: 0.6em; /* Reduce font size */
+        outline: none;
+        flex-grow: 1;
+        transition: border-color 0.3s ease-in-out;
+        color: black;
+    }
+
+    .input-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px; /* Adjust padding */
+        height: 25px; /* Adjust height */
+        border-top: 1px solid #ccc;
+        background: #f9f9f9;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .input-toolbar .left-buttons {
+        display: flex;
+    }
+
+    .input-toolbar .left-buttons button {
+        background: black;
+        border: Yellow;
+        font-size: 0.6em; /* Adjust font size */
+        cursor: pointer;
+        margin-right: 2px; /* Adjust margin */
+        padding: 2px 4px; /* Adjust padding */
+    }
+
+    .input-toolbar .send-button {
+        background: blue;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px; /* Adjust size */
+        height: 20px; /* Adjust size */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.6em; /* Adjust font size */
+        position: relative;
+    }
+
+    .input-toolbar .send-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M3 12L2 22L22 12L2 2L3 12Z" /></svg>') no-repeat center;
+        background-size: contain;
+        transform: translate(-50%, -50%);
+    }
+
+    .input-toolbar button:hover {
+        color: blue;
+    }
+
+    .placeholder {
+        color: #888;
+        font-style: italic;
+    }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <ul>
+        <li><button id="login-button" class="button">Login</button></li>
+        <li><button id="logout-button" class="button hidden">Logout</button></li>
+        <li id="email-display" class="hidden"></li>
+        <li><button id="message-count-button" class="button"><span id="message-count">Messages left: 0</span></button></li>
+        <li><button id="token-activate-button" class="button hidden">Activate Chat Tokens</button></li>
+        <li><button id="set-security-button" class="button hidden">Add Extra Security</button></li>
+        <li><button id="forgot-email-button" class="button">Forgot Email</button></li>
+        <li><button id="pay-button" class="button" onclick="window.location.href='https://alphazerotrader.com/product/exclusive-package-200000-chat-tokens-3-months-of-premium-consultation/'">Buy More Messages</button></li>
+    </ul>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="logo-container">
+                <img src="WhatsApp Image 2024-08-11 at 23.08.26_411f8b1a.jpg" alt="Alpha Zero Logo">
+                <span class="logo-text">Alpha Zero</span>
+            </div>
+            <div id="alphazero-area-section">
+                <div class="header draggable-handle">
+                    <div id="status">Please click begin(start) button to connect...</div>
+                    <div>
+                        <button id="close-avatar">X</button>
+                    </div>
+                </div>
+                <video id="alphazero-area" style="width: 100%; height: 100%;" autoplay=""></video>
+                <div>
+                    <button id="newBtn">Begin(Start)</button>
+                    <button id="startBtn1">Ready</button>
+                </div>
+            </div>
+            <div class="chat-dashboard" id="chat-dashboard"></div>
+            <div class="input-container">
+                <div class="input-dashboard placeholder" contenteditable="true">Give Alpha Zero a task to work on...</div>
+                <div class="input-toolbar">
+                    <div class="left-buttons">
+                        <button onclick="expandInput()">↕</button>
+                        <button>📎</button>
+                    </div>
+                    <button class="send-button" onclick="sendMessage()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+            const loginButton = document.getElementById('login-button');
+            const logoutButton = document.getElementById('logout-button');
+            const emailDisplay = document.getElementById('email-display');
+            const messageCount = document.getElementById('message-count');
+            const tokenActivateButton = document.getElementById('token-activate-button');
+            const setSecurityButton = document.getElementById('set-security-button');
+            const forgotEmailButton = document.getElementById('forgot-email-button');
+
+            loginButton.addEventListener('click', async () => {
+                const email = prompt("Please enter your email:");
+                const confirmEmail = prompt("Please confirm your email:");
+
+                if (email && confirmEmail) {
+                    const response = await fetch('/email_login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, confirm_email: confirmEmail })
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        sessionStorage.setItem('email', email);
+                        loginButton.classList.add('hidden');
+                        logoutButton.classList.remove('hidden');
+                        emailDisplay.classList.remove('hidden');
+                        tokenActivateButton.classList.remove('hidden');
+                        setSecurityButton.classList.remove('hidden');
+                        emailDisplay.textContent = `Logged in as: ${maskEmail(email)}`;
+                        await getMessageCount(email);
+                    } else {
+                        alert(data.error);
+                    }
+                }
+            });
+            
+            
+            logoutButton.addEventListener('click', async () => {
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    sessionStorage.removeItem('email');
+                    loginButton.classList.remove('hidden');
+                    logoutButton.classList.add('hidden');
+                    emailDisplay.classList.add('hidden');
+                    tokenActivateButton.classList.add('hidden');
+                    setSecurityButton.classList.add('hidden');
+                    messageCount.textContent = 'Messages left: 0';
+                } else {
+                    alert(data.error);
+                }
+            });
+            
+             tokenActivateButton.addEventListener('click', async () => {
+                const token = prompt("Please enter your token:");
+                const email = sessionStorage.getItem('email');
+                if (token && email) {
+                    const response = await fetch('/activate_token', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, token })
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert(`Token activated. ${data.message}`);
+                        // Update the message count
+                        await getMessageCount(email);
+                    } else {
+                        alert(data.error);
+                    }
+                }
+            });
+            
+            setSecurityButton.addEventListener('click', async () => {
+                const email = sessionStorage.getItem('email');
+                const action = prompt("Type 'view' to view your recovery code, 'set' to set a new recovery code, or 'change' to change your recovery code:");
+
+                if (action === 'set') {
+                    const recoveryCode = prompt("Set your recovery code (8-16 characters, must include at least one digit):");
+                    if (recoveryCode) {
+                        const response = await fetch('/set_recovery_code', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ recovery_code: recoveryCode })
+                        });
+                        const data = await response.json();
+                        if (response.ok) {
+                            alert(data.message);
+                        } else {
+                            alert(data.error);
+                        }
+                    }
+                } else if (action === 'view') {
+                    const response = await fetch('/view_recovery_code', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert(`Your recovery code is: ${data.recovery_code}`);
+                    } else {
+                        alert(data.error);
+                    }
+                } else if (action === 'change') {
+                    const oldCode = prompt("Enter your old recovery code:");
+                    const newCode = prompt("Enter your new recovery code (8-16 characters, must include at least one digit):");
+                    const confirmNewCode = prompt("Confirm your new recovery code:");
+                    if (oldCode && newCode && confirmNewCode) {
+                        const response = await fetch('/change_recovery_code', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ old_code: oldCode, new_code: newCode, confirm_new_code: confirmNewCode })
+                        });
+                        const data = await response.json();
+                        if (response.ok) {
+                            alert(data.message);
+                        } else {
+                            alert(data.error);
+                        }
+                    }
+                }
+            });
+            forgotEmailButton.addEventListener('click', async () => {
+                const recoveryCode = prompt("Please enter your recovery code:");
+                if (recoveryCode) {
+                    const response = await fetch('/recover_email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ recovery_code: recoveryCode })
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert(`Your email is: ${data.email}`);
+                    } else {
+                        alert(data.error);
+                    }
+                }
+            });
+            function maskEmail(email) {
+                const [user, domain] = email.split('@');
+                const maskedUser = user[0] + '*'.repeat(user.length - 1);
+                return `${maskedUser}@${domain}`;
+            }
+
+            async function getMessageCount(email) {
+                const response = await fetch(`/get_message_count?email=${encodeURIComponent(email)}`);
+                const data = await response.json();
+                if (response.ok) {
+                    const messageCountElement = document.getElementById('message-count');
+                    messageCountElement.textContent = `Messages left: ${data.messages}`;
+                } else {
+                    alert(data.error);
+                }
+            }
+
+            async function pollMessageCount() {
+                const email = sessionStorage.getItem('email');
+                if (email) {
+                    await getMessageCount(email);
+                }
+            }
+            
+            // Poll every second to update the message count
+            setInterval(pollMessageCount, 1000);
+
+            // Check if user is already logged in
+            const storedEmail = sessionStorage.getItem('email');
+            if (storedEmail) {
+                loginButton.classList.add('hidden');
+                logoutButton.classList.remove('hidden');
+                emailDisplay.classList.remove('hidden');
+                tokenActivateButton.classList.remove('hidden');
+                setSecurityButton.classList.remove('hidden');
+                emailDisplay.textContent = `Logged in as: ${maskEmail(storedEmail)}`;
+                getMessageCount(storedEmail);
+            }
+        });
+     </script>
+
+    <!-- Scripts -->
+    <script>
+       const _0x2a937f=_0x1e78;(function(_0x2f9f48,_0x45895f){const _0x4d1509=_0x1e78,_0x8a1b23=_0x2f9f48();while(!![]){try{const _0x4864b7=parseInt(_0x4d1509(0x124))/0x1+-parseInt(_0x4d1509(0x12a))/0x2+parseInt(_0x4d1509(0x133))/0x3+parseInt(_0x4d1509(0x10d))/0x4+parseInt(_0x4d1509(0x141))/0x5+parseInt(_0x4d1509(0x126))/0x6+parseInt(_0x4d1509(0x129))/0x7*(-parseInt(_0x4d1509(0x118))/0x8);if(_0x4864b7===_0x45895f)break;else _0x8a1b23['push'](_0x8a1b23['shift']());}catch(_0x1ef8ae){_0x8a1b23['push'](_0x8a1b23['shift']());}}}(_0xf4ff,0x19a56));const sessionID=_0x2a937f(0x116);function generateSessionID(){const _0x5b9c91=_0x2a937f;return Math[_0x5b9c91(0x140)]()[_0x5b9c91(0x144)]()[_0x5b9c91(0x135)](0x2,0xe);}function getSessionID(){return sessionID;}async function sendMessage(){const _0x1357fc=_0x2a937f,_0x500999=document[_0x1357fc(0x146)](_0x1357fc(0x14c)),_0x2e7be7=document[_0x1357fc(0x146)](_0x1357fc(0x10e)),_0x3395ba=document[_0x1357fc(0x142)](_0x1357fc(0x12d)),_0x231a0d=_0x500999[_0x1357fc(0x121)]['trim']();if(_0x231a0d&&_0x231a0d!=='Give Alpha Zero a task to work on...'){displayMessage(_0x231a0d,_0x1357fc(0x11e)),_0x500999[_0x1357fc(0x121)]='',console[_0x1357fc(0x12e)](_0x1357fc(0x143),_0x231a0d),console[_0x1357fc(0x12e)]('Session ID:',sessionID);const _0x39ac50=await fetch('/send_message',{'method':_0x1357fc(0x114),'headers':{'Content-Type':'application/json'},'body':JSON['stringify']({'message':_0x231a0d,'session_id':sessionID,'email':sessionStorage[_0x1357fc(0x11f)](_0x1357fc(0x12f))})});if(_0x39ac50['ok']){const _0x1164d4=await _0x39ac50['json']();console[_0x1357fc(0x12e)](_0x1357fc(0x131),_0x1164d4),displayMessage(_0x1164d4[_0x1357fc(0x113)],'ai'),sendMessageToAvatar(_0x1164d4[_0x1357fc(0x113)]),sessionStorage['getItem'](_0x1357fc(0x12f))&&await updateMessageCount(sessionStorage['getItem'](_0x1357fc(0x12f)));}else console[_0x1357fc(0x132)](_0x1357fc(0x130),_0x39ac50[_0x1357fc(0x147)]);_0x2e7be7['style'][_0x1357fc(0x150)]=_0x1357fc(0x11a),_0x2e7be7[_0x1357fc(0x14d)][_0x1357fc(0x112)]='200px',expanded=![];}}function displayMessage(_0x22b825,_0xc509dd){const _0x58c903=_0x2a937f,_0x5e3715=document[_0x58c903(0x142)](_0x58c903(0x12d)),_0xbcf3db=document['createElement'](_0x58c903(0x13d));_0xbcf3db[_0x58c903(0x10f)]=_0xc509dd===_0x58c903(0x11e)?_0x58c903(0x117):_0x58c903(0x13c);if(_0xc509dd==='ai'){const _0x146373=document[_0x58c903(0x145)](_0x58c903(0x139));_0x146373[_0x58c903(0x109)]=_0x58c903(0x137);const _0x3391cb=document[_0x58c903(0x145)](_0x58c903(0x13d));_0x3391cb['className']='message';const _0x328bed=formatMessage(_0x22b825);_0x3391cb[_0x58c903(0x136)]=_0x328bed,_0xbcf3db[_0x58c903(0x10c)](_0x146373),_0xbcf3db[_0x58c903(0x10c)](_0x3391cb);}else _0xbcf3db[_0x58c903(0x121)]=_0x22b825;_0x5e3715[_0x58c903(0x10c)](_0xbcf3db),_0x5e3715[_0x58c903(0x13a)]=_0x5e3715[_0x58c903(0x10a)],_0xc509dd==='ai'&&addCopyButtons();}function _0xf4ff(){const _0x420caa=['Failed to send message:','Response from server:','error','473094lyAmXP','Copy','slice','innerHTML','static/alphazero.png','Code copied to clipboard','img','scrollTop','remove','response-message','div','then','/get-convo?session_id=','random','633370QsdwSk','getElementById','Sending message:','toString','createElement','querySelector','statusText','</code></pre><button class="copy-button" onclick="copyToClipboard(this)">Copy</button></div>','onclick','replace','classList','.input-dashboard','style','200px','length','top','trim','src','scrollHeight','Give Alpha Zero a task to work on...','appendChild','473512TLzduI','.input-container','className','messages','forEach','height','response','POST','expandInput','0466497283014933698169','chat-message','24fiJKOk','focus','800px','highlightAuto','.copy-button','add','user','getItem','500px','textContent','pre','addEventListener','95589aRlYeb','placeholder','344844OPGofk','previousElementSibling','button','836409JJDozV','184612TOYpuK','copy-button','querySelectorAll','chat-dashboard','log','email'];_0xf4ff=function(){return _0x420caa;};return _0xf4ff();}function formatMessage(_0x2f78c8){const _0x628bad=_0x2a937f,_0x3e9a09=/```(.*?)```/gs;return _0x2f78c8[_0x628bad(0x14a)](_0x3e9a09,(_0x47f425,_0x426f1b)=>{const _0x57d8b9=_0x628bad;return'<div class="code-block"><pre><code>'+hljs[_0x57d8b9(0x11b)](_0x426f1b)['value']+_0x57d8b9(0x148);});}function _0x1e78(_0xe5f6d7,_0x45dfdf){const _0xf4ff66=_0xf4ff();return _0x1e78=function(_0x1e7817,_0x125757){_0x1e7817=_0x1e7817-0x109;let _0x4be102=_0xf4ff66[_0x1e7817];return _0x4be102;},_0x1e78(_0xe5f6d7,_0x45dfdf);}function addCopyButtons(){const _0x100ddf=_0x2a937f,_0x698dbb=document[_0x100ddf(0x12c)]('.code-block');_0x698dbb[_0x100ddf(0x111)](_0x22a766=>{const _0x47c0ed=_0x100ddf;if(!_0x22a766['querySelector'](_0x47c0ed(0x11c))){const _0x2dde65=document[_0x47c0ed(0x145)](_0x47c0ed(0x128));_0x2dde65[_0x47c0ed(0x10f)]=_0x47c0ed(0x12b),_0x2dde65['textContent']=_0x47c0ed(0x134),_0x2dde65[_0x47c0ed(0x149)]=()=>copyToClipboard(_0x22a766['querySelector'](_0x47c0ed(0x122))['textContent']),_0x22a766[_0x47c0ed(0x10c)](_0x2dde65);}});}function copyToClipboard(_0x57177b){const _0x475920=_0x2a937f,_0x437f80=_0x57177b[_0x475920(0x127)][_0x475920(0x121)];navigator['clipboard']['writeText'](_0x437f80)[_0x475920(0x13e)](()=>{const _0x150106=_0x475920;alert(_0x150106(0x138));});}document[_0x2a937f(0x123)]('DOMContentLoaded',function(){const _0x2c62d2=_0x2a937f,_0x2a4c8d=document[_0x2c62d2(0x146)](_0x2c62d2(0x14c)),_0x42a7a6=document[_0x2c62d2(0x146)](_0x2c62d2(0x10e));let _0x4d8842=![];_0x2a4c8d[_0x2c62d2(0x123)](_0x2c62d2(0x119),function(){const _0x2a0389=_0x2c62d2;this[_0x2a0389(0x121)][_0x2a0389(0x151)]()===_0x2a0389(0x10b)&&(this[_0x2a0389(0x121)]='',this[_0x2a0389(0x14b)][_0x2a0389(0x13b)](_0x2a0389(0x125)));}),_0x2a4c8d['addEventListener']('blur',function(){const _0x103088=_0x2c62d2;this['textContent']['trim']()===''&&(this['textContent']=_0x103088(0x10b),this[_0x103088(0x14b)][_0x103088(0x11d)]('placeholder'));});_0x2a4c8d[_0x2c62d2(0x121)][_0x2c62d2(0x151)]()===_0x2c62d2(0x10b)&&_0x2a4c8d[_0x2c62d2(0x14b)][_0x2c62d2(0x11d)](_0x2c62d2(0x125));function _0x667c59(){const _0x1de720=_0x2c62d2;!_0x4d8842?(_0x42a7a6['style']['top']=_0x1de720(0x120),_0x42a7a6[_0x1de720(0x14d)]['height']=_0x1de720(0x120),_0x4d8842=!![]):(_0x42a7a6[_0x1de720(0x14d)][_0x1de720(0x150)]=_0x1de720(0x11a),_0x42a7a6[_0x1de720(0x14d)][_0x1de720(0x112)]=_0x1de720(0x14e),_0x4d8842=![]);}window[_0x2c62d2(0x115)]=_0x667c59;});async function pollConvoFile(){const _0x5ed0ec=_0x2a937f,_0x3bb377=await fetch(_0x5ed0ec(0x13f)+sessionID),_0x472b81=await _0x3bb377['json'](),_0x15a43d=_0x472b81[_0x5ed0ec(0x110)];if(_0x15a43d['length']>0x0){const _0x4442e2=_0x15a43d[_0x15a43d[_0x5ed0ec(0x14f)]-0x1];displayMessageAndSendToAvatar(_0x4442e2);}}setInterval(pollConvoFile,0x1388);
+    </script>
+    <script src="/static/scripts.js"></script>
+    <script src="/static/talking.js"></script>
+    <script type="module" src="/static/heygen-streaming.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    </body></html>

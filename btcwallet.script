@@ -1,0 +1,45 @@
+// Set countdown time in minutes and seconds
+let countdownMinutes = 360; // 360 minutes
+let countdownSeconds = 0;
+
+function updateCountdown() {
+    const countdownElement = document.getElementById('time');
+    
+    if (countdownSeconds === 0 && countdownMinutes === 0) {
+        // Timer has reached 0, stop the countdown
+        clearInterval(countdownInterval);
+        countdownElement.innerText = 'Expired';
+        return;
+    }
+
+    // Decrease time
+    if (countdownSeconds === 0) {
+        countdownMinutes--;
+        countdownSeconds = 59;
+    } else {
+        countdownSeconds--;
+    }
+
+    // Update displayed time
+    const minutesDisplay = countdownMinutes.toString().padStart(2, '0');
+    const secondsDisplay = countdownSeconds.toString().padStart(2, '0');
+    countdownElement.innerText = `${minutesDisplay}:${secondsDisplay}`;
+}
+
+// Update the countdown every second
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+// Copy to clipboard function
+const copyButton = document.getElementById('copy-button');
+const walletAddress = document.getElementById('wallet-address');
+
+copyButton.addEventListener('click', () => {
+    walletAddress.select();
+    document.execCommand('copy');
+
+    // Change icon text to show success
+    copyButton.innerText = '✅';
+    setTimeout(() => {
+        copyButton.innerText = '📋';
+    }, 2000);
+});

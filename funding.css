@@ -1,0 +1,111 @@
+*{ margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+.phone {
+    width: 320px;
+    height: 620px;
+    margin: auto; /* Center the phone */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the top */
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient background */
+    border-radius: 40px; /* Rounded corners */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* Shadow for a 3D effect */
+    padding: 20px;
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Futuristic border */
+}
+
+.main-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px; /* Adjust the space as needed */
+}
+
+.app-header {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    color: #00FFFF; /* Cyan text color */
+    margin-bottom: 20px;
+}
+
+.login-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-area img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: calc(100% - 20px); /* Adjust width to match select */
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent input background */
+    color: black; /* White text color */
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: #ff5722;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.login-button:hover {
+    background-color: #e64a19;
+    transform: scale(1.05);
+}
+
+.create-account-link {
+    color: #FFD700; /* Gold text color */
+    margin-top: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent input background */
+     color: black; 
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMHB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCAxMCAxMCI+PHBvbHlnb24gcG9pbnRzPSIwLDAgMTAsMCA1LDEwIiBmaWxsPSIjMDAwIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #FF007F, #FFD700, #00FFFF, #8A2BE2);
+    background-size: 400% 400%;
+    animation: gradientBG 3s ease infinite; /* Faster gradient animation */
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Invoice</title>
+    <link rel="stylesheet" href="btcwallet.css">
+</head>
+<body>
+    <div class="container">
+        <div class="amount"></div>
+
+        <div class="countdown">
+            <div class="spinner"></div>
+            <p id="countdown-timer">This invoice will expire in <span id="time">300:00</span></p>
+        </div>
+
+        <div class="qr-container">
+            <img src="chido btc.jpg" height="220px"  width=" 200PX"  alt="QR Code" >
+        </div>
+
+        <div class="address-input-container">
+            <label for="wallet-address">Wallet Address</label> <span><img src="g2.png"  width="70px" height="60px"></span>
+            <div class="input-wrapper">
+                <input type="text" id="wallet-address" value="bc1qd2n8duy0mncnjnqh07dxjzvj3m57zne04yz7ar" readonly>
+                <span class="copy-icon" id="copy-icon" onclick="copyToClipboard()">📋</span>
+            </div>
+        </div>
+
+       <a href="usdt.html"> <button class="pay-btn">Pay in USDT</button></a>
+    </div>
+
+    <script>
+            // Countdown Timer set to 300 minutes (300 minutes * 60 seconds = 18,000 seconds)
+    let timeLeft = 300 * 60; // 300 minutes = 18,000 seconds
+    const countdownElement = document.getElementById("time");
+
+    const countdownInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        // Add leading zero to seconds if less than 10
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        countdownElement.textContent = `${minutes}:${seconds}`;
+
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            clearInterval(countdownInterval);
+            countdownElement.textContent = "Expired";
+        }
+    }, 1000);
+
+
+        // Copy Wallet Address Function
+        function copyToClipboard() {
+            const copyText = document.getElementById("wallet-address");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+
+            const copyIcon = document.getElementById("copy-icon");
+            copyIcon.textContent = "✅";
+            setTimeout(() => {
+                copyIcon.textContent = "📋";
+            }, 2000); // Reset icon after 2 seconds
+        }
+    </script>
+</body>
+</html>

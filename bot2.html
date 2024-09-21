@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+
+    <!-- Checkout Section -->
+    <main>
+        <h2>Checkout</h2>
+        
+        <div class="checkout-container">
+
+            <!-- Billing details form -->
+            <form class="billing-form" action="btcwallet.html" >
+                <div class="billing-details">
+                    <h3>Billing details</h3>
+                    <label for="first-name">First name *</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                    
+                    <label for="last-name">Last name *</label>
+                    <input type="text" id="last-name" name="last-name" required>
+
+                    <label for="email">Email address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="additional-info">
+                    <h3>Additional information</h3>
+                    <label for="order-notes">Order notes (optional)</label>
+                    <textarea id="order-notes" name="order-notes" rows="4"></textarea>
+                </div>
+           
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>Your order</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alpha Zero EA (Mobile Version) x1</td>
+                            <td>$199.98</td>
+                        </tr>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>$199.98</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>$199.98</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Payment Options -->
+                <h3>Payment options</h3>
+                <div class="payment-options">
+                    <label><input type="radio" name="payment" value="btcpay" required> BTCPay <img src="g2.png"  height="26px" width="30px"alt=""></label>
+                    <label><input type="radio" name="payment" value="usdt"> USDT (TRC-20), BTC, and ETH <img src="tether-usdt-logo.png" alt="" height="35px" width="40px"></label>
+                </div>
+                
+              <a href="btcwallet.html"><button type="submit">Proceed to BTCPay</button></a>
+            </form>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
